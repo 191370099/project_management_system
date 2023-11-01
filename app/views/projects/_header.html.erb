@@ -1,0 +1,21 @@
+<nav class="navbar navbar-dark bg-dark">
+  <div class="row">
+    <h1 class="text-white">Project Management App</h1>
+    <% if user_signed_in? %>
+      <div class="row">
+        Welcome, <%= current_user.name %>
+        <% if current_user.type == "Manager"%>
+          <div class="col">
+            <%= button_to "Create Project", new_project_path, method: :get, class: "btn btn-primary" %>
+          </div>
+        <%end%>
+        <div class="col">
+          <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+        </div>
+        <div class="col">
+          <%= button_to "Edit Profile", edit_user_registration_path, method: :get, class: "btn btn-success" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</nav>

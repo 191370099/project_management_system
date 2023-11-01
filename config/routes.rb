@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
-  resources :projects
-  resources :tasks
+  resources :projects do
+    resources :tasks, shallow: true
+  end
 end

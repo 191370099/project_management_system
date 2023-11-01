@@ -1,7 +1,7 @@
-<%= form_with model: @project, html: {class:"form"} do |form| %>
+<%= form_with url: '/projects', html: {class: "form"} do |form| %>
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, class: 'form-control' %>
+    <%= form.text_field :name , class: 'form-control'%>
   </div>
   <div class="field">
     <%= form.label :description %>
@@ -11,5 +11,5 @@
     <%= form.label :due_date %>
     <%= form.date_field :due_date, class: 'form-control' %>
   </div>
-  <%= form.submit  class: 'btn btn-primary' %>
+  <%= form.submit "Create Project", class: "btn btn-primary" %>
 <% end %>

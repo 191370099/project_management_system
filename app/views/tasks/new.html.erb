@@ -1,0 +1,26 @@
+<%= form_with url: "/projects/#{params[:project_id]}/tasks", html: {class: "form"} do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name , class: 'form-control'%>
+  </div>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= form.label :task_type %><br>
+    <%= form.radio_button :task_type, 'Bug' %>
+    <%= form.label :task_type, 'Bug' %><br>
+    <%= form.radio_button :task_type, 'Feature' %>
+    <%= form.label :task_type, 'Feature' %><br>
+  </div>
+  <div class="field">
+    <%= form.label :priority %>
+    <%= form.number_field :priority, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= form.label :developer_id %>
+    <%= form.collection_select :developer_id, Developer.where.missing(:tasks), :id, :name, prompt: "Select a Developer" %>
+  </div>
+  <%= form.submit "Create Task", class: "btn btn-primary" %>
+<% end %>

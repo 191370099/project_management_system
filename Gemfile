@@ -74,3 +74,7 @@ end
 gem 'faker'
 
 gem 'devise'
+
+gem 'cssbundling-rails'
+
+gem 'byebug'
