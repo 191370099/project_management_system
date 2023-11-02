@@ -9,10 +9,10 @@
   </div>
   <div class="field">
     <%= form.label :task_type %><br>
-    <%= form.radio_button :task_type, 'Bug' %>
-    <%= form.label :task_type, 'Bug' %><br>
-    <%= form.radio_button :task_type, 'Feature' %>
-    <%= form.label :task_type, 'Feature' %><br>
+    <%= form.radio_button :task_type, 'bug' %>
+    <%= form.label :task_type, 'bug' %><br>
+    <%= form.radio_button :task_type, 'feature' %>
+    <%= form.label :task_type, 'feature' %><br>
   </div>
   <div class="field">
     <%= form.label :priority %>
@@ -20,7 +20,7 @@
   </div>
   <div class="field">
     <%= form.label :developer_id %>
-    <%= form.collection_select :developer_id, Developer.where.missing(:tasks), :id, :name, prompt: "Select a Developer" %>
+    <%= form.collection_select :developer_id, Developer.left_outer_joins(:tasks).where('tasks.developer_id IS NULL OR tasks.task_status NOT IN (0)').distinct, :id, :name, prompt: "Select a Developer" %>
   </div>
   <%= form.submit "Create Task", class: "btn btn-primary" %>
 <% end %>

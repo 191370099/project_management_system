@@ -17,16 +17,18 @@
           <td><%= project.name %></td>
           <td><%= project.description %></td>
           <td><%= project.due_date %></td>
-          <td class ='row'>
-            <div class="col">
+          <td class ='row' data-controller="change">
+            <div class="col" data-change-target="ticket" data-change-type-value = <%= current_user.type%>>
               <%= link_to "Manage Tickets", project_path(project), class: 'btn btn-primary'%>
             </div>
-            <div class="col">
-              <%= link_to "Update", edit_project_path(project),class: 'btn btn-success' %>
-            </div>
-            <div class="col">
-              <%= button_to "Delete", project_path(project), method: :delete, data: { confirm: "Are you sure?" },class: 'btn btn-danger' %>
-            </div>
+            <% if current_user.type == "Manager" %>
+              <div class="col">
+                <%= link_to "Update", edit_project_path(project),class: 'btn btn-success' %>
+              </div>
+              <div class="col">
+                <%= button_to "Delete", project_path(project), method: :delete, data: { confirm: "Are you sure?" },class: 'btn btn-danger' %>
+              </div>
+            <%end%>
           </td>
         </tr>
       <% end %>

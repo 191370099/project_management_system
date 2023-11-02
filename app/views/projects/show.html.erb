@@ -1,7 +1,10 @@
 <% if @tasks.count == 0 %>
   <h1> This Project has No Tickets Yet</h1>
+  <%= link_to 'Create Task', new_project_task_path(params[:id]), class: "btn btn-primary" %>
 <% else %>
-  <%= link_to 'Create Task', new_project_task_path(@tasks.first.project_id), class: "btn btn-primary"%>
+  <% if current_user.type == "Manager"%>
+    <%= link_to 'Create Task', new_project_task_path(@tasks.first.project_id), class: "btn btn-primary"%>
+  <% end %>
   <h1>Tickets</h1>
   <table class="table">
     <thead>
@@ -16,21 +19,32 @@
     </thead>
     <tbody>
       <% @tasks.each do |task| %>
-        <tr>
-          <td><%= task.name %></td>
-          <td><%= task.description %></td>
-          <td><%= task.task_type %></td>
-          <td><%= task.task_status %></td>
-          <td><%= task.priority %></td>
-          <td class ='row'>
-            <div class="col">
-              <%= link_to "Update", edit_project_path(),class: 'btn btn-success' %>
-            </div>
-            <div class="col">
-              <%= button_to "Delete", project_path(), method: :delete, data: { confirm: "Are you sure?" },class: 'btn btn-danger' %>
-            </div>
-          </td>
-        </tr>
+        <% if current_user.type == "Manager" %>
+          <tr>
+            <td><%= task.name %></td>
+            <td><%= task.description %></td>
+            <td><%= task.task_type %></td>
+            <td><%= task.task_status %></td>
+            <td><%= task.priority %></td>
+            <td class ='row'>
+              <div class="col">
+                <%= link_to "Update", edit_task_path(task),class: 'btn btn-success' %>
+              </div>
+              <div class="col">
+                <%= button_to "Delete", task_path(task), method: :delete, data: { confirm: "Are you sure?" },class: 'btn btn-danger' %>
+              </div>
+            </td>
+          </tr>
+        <% elsif task.developer_id == current_user.id %>
+          <tr>
+            <td><%= task.name %></td>
+            <td><%= task.description %></td>
+            <td><%= task.task_type %></td>
+            <td><%= task.task_status %></td>
+            <td><%= task.priority %></td>
+            <td>Not Authroized</td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

@@ -28,9 +28,18 @@ class ProjectsController < ApplicationController
     end
   end
   def destroy
+    begin
     @project = Project.find(params[:id])
-    @project.destroy
+    ActiveRecord::Base.transaction do
+      @project.tasks.destroy_all
+      @project.destroy
+    end
     redirect_to root_path
+    rescue StandardError => e
+      # Handle other exceptions or errors
+      flash[:alert] = "An error occurred"
+      redirect_to root_path
+    end
   end
   def show
     @project = Project.find(params[:id])
