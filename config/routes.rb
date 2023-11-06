@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  root "projects#index"
+  root 'projects#index'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
-  resources :projects
-  resources :tasks
+  resources :projects do
+    resources :tasks, shallow: true
+  end
 end

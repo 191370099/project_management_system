@@ -1,0 +1,7 @@
+<%= form_with model: [:project, @task], html: {class: "form"} do |form| %>
+  <%= render partial: 'tasks/form', locals: {form: form} %>
+  <div class="d-none">
+    <%= form.text_field :task_status, value: 'assigned', class: 'form-control' %>
+  </div>
+  <%= form.submit class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,44 @@
+<% if @tasks.count == 0 %>
+  <h1> This Project has No Tickets Yet</h1>
+  <%= link_to 'Create Task', new_project_task_path(params[:id]), class: "btn btn-primary" %>
+<% else %>
+  <% if current_user.type == "Manager"%>
+    <%= link_to 'Create Task', new_project_task_path(@tasks.first.project_id), class: "btn btn-primary"%>
+  <% end %>
+  <h1>Tickets</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.name %></td>
+          <td><%= task.description %></td>
+          <td><%= task.task_type %></td>
+          <td><%= task.task_status %></td>
+          <td><%= task.priority %></td>
+          <% if current_user.type == "Manager" %>
+            <td class ='row'>
+              <div class="col">
+                <%= link_to "Update", edit_task_path(task),class: 'btn btn-success' %>
+              </div>
+              <div class="col">
+                <%= button_to "Delete", task_path(task), method: :delete, data: { confirm: "Are you sure?" },class: 'btn btn-danger' %>
+              </div>
+            </td>
+          <% else %>
+            <td>Not Authroized</td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

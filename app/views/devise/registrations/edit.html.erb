@@ -13,13 +13,6 @@
     <%= f.label :phone %><br>
     <%= f.text_field :phone %>
   </div>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= f.radio_button :type, 'Developer' %>
-    <%= f.label :type, 'Developer' %><br>
-    <%= f.radio_button :type, 'Manager' %>
-    <%= f.label :type, 'Manager' %><br>
-  </div>
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

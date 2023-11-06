@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   enum task_type: { bug: 0, feature: 1 }
-  enum task_status: { pending: 0, assigned: 1, completed: 2 }
+  enum task_status: { assigned: 0, completed: 1 }
   validates :priority, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 10 }
   belongs_to :project
   belongs_to :developer
@@ -9,10 +9,10 @@ class Task < ApplicationRecord
   private
 
   def check_availability
-    if (task_status.assigned && developer.present?)
-      if developer.tasks.size > 0
-        errors.add(:name, 'Developer is not availabe!')
-      end
-    end
+    return unless developer
+    return unless developer.tasks.where(task_status: 0).any?
+
+    errors.add(:developer_id, 'Developer is already assigned to another task')
+    throw(:abort)
   end
 end

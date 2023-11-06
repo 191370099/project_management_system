@@ -1,0 +1,12 @@
+<%= form_with model: @task, html: {class: "form"} do |form| %>
+  <%= render partial: 'tasks/form', locals: {form: form} %>
+  <div class="field">
+    <%= form.label :task_status %><br>
+    <% task_statuses = ['assigned', 'completed'] %>
+    <% task_statuses.each do |status| %>
+      <%= form.radio_button :task_status, status %>
+      <%= form.label :task_status, status %><br>
+    <% end %>
+  </div>
+  <%= form.submit  class: "btn btn-primary" %>
+<% end %>

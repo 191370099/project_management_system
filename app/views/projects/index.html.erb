@@ -1,1 +1,37 @@
-<%= button_to 'Log Out', destroy_user_session_path, method: :delete %>
+<% if @projects.count == 0 %>
+  <h1> <%= current_user.name %> has No Projects</h1>
+<% else %>
+  <h1>Projects</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.name %></td>
+          <td><%= project.description %></td>
+          <td><%= project.due_date %></td>
+          <td class ='row' data-controller="change">
+            <div class="col" data-change-target="ticket" data-change-type-value = <%= current_user.type%>>
+              <%= link_to "Manage Tickets", project_path(project), class: 'btn btn-primary'%>
+            </div>
+            <% if current_user.type == "Manager" %>
+              <div class="col">
+                <%= link_to "Update", edit_project_path(project),class: 'btn btn-success' %>
+              </div>
+              <div class="col">
+                <%= button_to "Delete", project_path(project), method: :delete, data: { confirm: "Are you sure?" },class: 'btn btn-danger' %>
+              </div>
+            <%end%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
