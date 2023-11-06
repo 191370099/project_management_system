@@ -19,13 +19,13 @@
     </thead>
     <tbody>
       <% @tasks.each do |task| %>
-        <% if current_user.type == "Manager" %>
-          <tr>
-            <td><%= task.name %></td>
-            <td><%= task.description %></td>
-            <td><%= task.task_type %></td>
-            <td><%= task.task_status %></td>
-            <td><%= task.priority %></td>
+        <tr>
+          <td><%= task.name %></td>
+          <td><%= task.description %></td>
+          <td><%= task.task_type %></td>
+          <td><%= task.task_status %></td>
+          <td><%= task.priority %></td>
+          <% if current_user.type == "Manager" %>
             <td class ='row'>
               <div class="col">
                 <%= link_to "Update", edit_task_path(task),class: 'btn btn-success' %>
@@ -34,17 +34,10 @@
                 <%= button_to "Delete", task_path(task), method: :delete, data: { confirm: "Are you sure?" },class: 'btn btn-danger' %>
               </div>
             </td>
-          </tr>
-        <% elsif task.developer_id == current_user.id %>
-          <tr>
-            <td><%= task.name %></td>
-            <td><%= task.description %></td>
-            <td><%= task.task_type %></td>
-            <td><%= task.task_status %></td>
-            <td><%= task.priority %></td>
+          <% else %>
             <td>Not Authroized</td>
-          </tr>
-        <% end %>
+          <% end %>
+        </tr>
       <% end %>
     </tbody>
   </table>

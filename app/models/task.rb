@@ -9,11 +9,10 @@ class Task < ApplicationRecord
   private
 
   def check_availability
-    if self.developer
-      if self.developer.tasks.where(task_status: 0).any?
-        errors.add(:developer_id, "Developer is already assigned to another task")
-        throw(:abort)
-      end
-    end
+    return unless developer
+    return unless developer.tasks.where(task_status: 0).any?
+
+    errors.add(:developer_id, 'Developer is already assigned to another task')
+    throw(:abort)
   end
 end

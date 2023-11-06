@@ -11,13 +11,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   # def create
-    # puts "Hello"
-    # puts params[:user][:type]
-    # @user = User.new(name: params[:user][:name],phone: params[:user][:phone],email: params[:user][:email],type: params[:user][:type],encrypted_password: params[:user][:password],)
-    # # puts @user.errors.size
-    # if @user.save(validate: false)
-    #   redirect_to root_url
-    # end
+  # puts "Hello"
+  # puts params[:user][:type]
+  # @user = User.new(name: params[:user][:name],phone: params[:user][:phone],email: params[:user][:email],type: params[:user][:type],encrypted_password: params[:user][:password],)
+  # # puts @user.errors.size
+  # if @user.save(validate: false)
+  #   redirect_to root_url
+  # end
   # end
 
   # private
@@ -57,7 +57,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :type, :phone])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name type phone])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
