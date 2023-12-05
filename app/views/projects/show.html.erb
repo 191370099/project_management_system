@@ -17,14 +17,16 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody data-controller="priority" id="my-table">
       <% @tasks.each do |task| %>
         <tr>
           <td><%= task.name %></td>
           <td><%= task.description %></td>
           <td><%= task.task_type %></td>
           <td><%= task.task_status %></td>
-          <td><%= task.priority %></td>
+          <td data-priority-taskId-param="<%= task.id %>" data-action="change->priority#next">
+            <%= select_tag "task_priority_#{task.id}", options_for_select((1..10).map { |num| [num.to_s, num] }, task.priority) %>
+          </td>
           <% if current_user.type == "Manager" %>
             <td class ='row'>
               <div class="col">

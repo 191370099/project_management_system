@@ -7,9 +7,8 @@ export default class extends Controller {
     name: String
   }
   connect() {
-    console.log("Hello it's Salman");
     if( this.nameValue == "Developer"){
-      this.ticketTarget.textContent = "View Tickets";
+      this.ticketTarget.a.textContent = "View Tickets";
     }
   }
 }

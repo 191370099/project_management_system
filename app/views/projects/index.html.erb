@@ -18,7 +18,7 @@
           <td><%= project.description %></td>
           <td><%= project.due_date %></td>
           <td class ='row' data-controller="change">
-            <div class="col" data-change-target="ticket" data-change-type-value = <%= current_user.type%>>
+            <div class="col" data-change-target="ticket" data-change-name-value = <%= current_user.type%>>
               <%= link_to "Manage Tickets", project_path(project), class: 'btn btn-primary'%>
             </div>
             <% if current_user.type == "Manager" %>

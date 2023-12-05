@@ -15,4 +15,9 @@ class Task < ApplicationRecord
     errors.add(:developer_id, 'Developer is already assigned to another task')
     throw(:abort)
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at description developer_id id name priority project_id task_status task_type
+       updated_at]
+  end
 end

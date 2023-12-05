@@ -41,7 +41,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @tasks = Task.where('project_id = ?', @project.id)
+    @q = Task.where('project_id = ?', @project.id).ransack(params[:q])
+    @tasks = @q.result(distinct: true).order(priority: :desc)
   end
 
   private

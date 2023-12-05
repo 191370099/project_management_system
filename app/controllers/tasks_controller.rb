@@ -19,8 +19,12 @@ class TasksController < ApplicationController
   def update
     return unless @task.update(task_params)
 
-    redirect_to root_path
-    flash[:notice] = 'Task updated'
+    respond_to do |format|
+      format.json do
+        render json: { success: true }
+      end
+      format.html { redirect_to root_path }
+    end
   end
 
   def destroy
