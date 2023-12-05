@@ -16,7 +16,6 @@ end
   )
 end
 
-
 4.times do
   Project.create(
     name: Faker::Lorem.words(number: 2).join(' '),

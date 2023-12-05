@@ -1,0 +1,24 @@
+<div class="field">
+  <%= form.label :name %>
+  <%= form.text_field :name , class: 'form-control'%>
+</div>
+<div class="field">
+  <%= form.label :description %>
+  <%= form.text_area :description, class: 'form-control' %>
+</div>
+<div class="field">
+  <%= form.label :task_type %><br>
+  <% task_types = ['bug', 'feature'] %>
+  <% task_types.each do |type| %>
+    <%= form.radio_button :task_type, type %>
+    <%= form.label :task_type, type %><br>
+  <% end %>
+</div>
+<div class="field">
+  <%= form.label :priority %>
+  <%= form.number_field :priority, class: 'form-control' %>
+</div>
+<div class="field">
+  <%= form.label :developer_id %>
+  <%= form.collection_select :developer_id, Developer.left_outer_joins(:tasks).where('tasks.developer_id IS NULL OR tasks.task_status NOT IN (0)').distinct, :id, :name, prompt: "Select a Developer" %>
+</div>
